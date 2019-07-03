@@ -5,6 +5,8 @@ import subprocess
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
 
+IP_list=[]
+
 # C段测试
 def get_ip_list(net_segment):
     # 创建一个队列
@@ -26,6 +28,7 @@ def get_ip_list(net_segment):
 
     # 等待所有任务结束
     wait(all_task, return_when=ALL_COMPLETED)
+    return IP_list
     print('ping耗时：%s' % (time.time() - start_time)+"秒")
 
     # 定义一个执行 ping 的函数
@@ -33,7 +36,8 @@ def ping_ip(ip):
         res = subprocess.call('ping -n 2 -w 5 %s' % ip, stdout=subprocess.PIPE)  # linux 系统将 '-n' 替换成 '-c'
         # 打印运行结果
         if res == 0 :
-            print(ip + "存活")
+            #print(ip + "存活")
+            IP_list.append(ip)
 
 if __name__ == '__main__':
-    ip_list = get_ip_list("192.168.1.0")  #C段
+    iplist= get_ip_list("192.168.1.0")  #C段
