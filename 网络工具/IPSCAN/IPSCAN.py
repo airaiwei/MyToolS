@@ -35,9 +35,11 @@ def get_ip_list(net_segment):
 def ping_ip(ip):
         res = subprocess.call('ping -n 2 -w 5 %s' % ip, stdout=subprocess.PIPE)  # linux 系统将 '-n' 替换成 '-c'
         # 打印运行结果
-        if res == 0 :
+        if res == 0:
             #print(ip + "存活")
             IP_list.append(ip)
 
 if __name__ == '__main__':
+    IP_list =[]
     iplist= get_ip_list("192.168.1.0")  #C段
+    #print(iplist)
